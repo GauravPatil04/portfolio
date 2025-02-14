@@ -2,12 +2,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #fff;
-    background-image: url('assets/img/Backgroung_img.avif');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #f5f5f5; /* Light pastel blue */
+    color: #010000; /* Ensure text color is white */
+    font-size: 18px;
 }
 
 header {
@@ -44,7 +41,12 @@ nav ul li a {
 section {
     padding: 40px;
     text-align: center;
-    color: #fff; 
+    color: #000000; /* Ensure text color is white */
+    font-size: 25px;
+}
+
+section#about {
+    font-size: 28px; /* Increase font size for About Me section */
 }
 
 section#about img {
@@ -68,23 +70,24 @@ section#contact a img {
 }
 
 .project {
-    background-color: white;
+    background-color: #fff; /* White background for project boxes */
     padding: 15px;
     margin: 20px auto;
     border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    width: 50%;
-    color: #333; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Darker shadow for better contrast */
+    width: 40%; /* Decrease width of project boxes */
+    font-size: 18px;
+    color: #000000; /* Ensure text inside project sections is dark */
 }
 
-footer {
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+a {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit text color */
+    outline: none; /* Remove blue outline */
+}
+
+a:focus {
+    outline: none; /* Remove blue outline on focus */
 }
 
 .profile-photo {

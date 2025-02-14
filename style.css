@@ -3,7 +3,11 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    color: #333;
+    color: #fff;
+    background-image: url('assets/img/Backgroung_img.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 header {
@@ -11,6 +15,13 @@ header {
     color: white;
     padding: 20px;
     text-align: center;
+    position: relative;
+}
+
+header .profile-photo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
 nav ul {
@@ -33,6 +44,7 @@ nav ul li a {
 section {
     padding: 40px;
     text-align: center;
+    color: #fff; 
 }
 
 section#about img {
@@ -62,10 +74,11 @@ section#contact a img {
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     width: 50%;
+    color: #333; 
 }
 
 footer {
-    background-color: #222;
+    background-color: black;
     color: white;
     text-align: center;
     padding: 10px;
@@ -74,41 +87,10 @@ footer {
     width: 100%;
 }
 
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-form input[type="text"],
-form input[type="email"],
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-form button {
-    background-color: #222;
-    color: white;
-    padding: 50px 50px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #555;
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }

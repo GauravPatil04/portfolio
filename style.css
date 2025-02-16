@@ -5,6 +5,7 @@ body {
     background: linear-gradient(225deg, #f3e9b1, #6c63d0, #f3e9b1);
     color: #010000; 
     font-size: 18px;
+    min-height: 100vh; /* Ensure body covers the entire screen */
 }
 
 header {
@@ -29,7 +30,6 @@ header h1 {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
 
 nav ul {
     list-style: none;
@@ -80,7 +80,7 @@ section#contact a img {
 }
 
 .project {
-    background: linear-gradient(225deg, #b5b0ee, #6c63d0, #b5b0ee);; 
+    background: linear-gradient(225deg, #b5b0ee, #6c63d0, #b5b0ee); 
     padding: 15px;
     margin: 20px auto;
     border-radius: 5px;

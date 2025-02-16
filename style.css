@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(225deg, #f3e9b1, #6c63d0, #f3e9b1);
+    color: #010000; 
+    font-size: 18px;
+}
+
+header {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+header .profile-photo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+header h1 {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+section {
+    padding: 40px;
+    text-align: center;
+    color: #000000; 
+    font-size: 25px;
+}
+
+section#about {
+    font-size: 28px;
+}
+
+section#about img {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+section#about a img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+section#contact a img {
+    width: 1cm; 
+    height: 1cm; 
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+.project {
+    background: linear-gradient(225deg, #b5b0ee, #6c63d0, #b5b0ee);; 
+    padding: 15px;
+    margin: 20px auto;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
+    width: 40%; 
+    font-size: 18px;
+    color: #000000; 
+}
+
+a {
+    text-decoration: none; 
+    color: inherit;
+    outline: none; 
+}
+
+a:focus {
+    outline: none; 
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}

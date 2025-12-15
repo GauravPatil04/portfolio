@@ -1,14 +1,8 @@
 {
-  "build": {
-    "env": {
-      "VITE_PUBLIC_URL": "/portfolio"
-    },
-    "command": "npm run build"
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/[^.]+",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

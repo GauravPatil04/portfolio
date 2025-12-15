@@ -2,10 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(225deg, #f3e9b1, #6c63d0, #f3e9b1);
+    background: whitesmoke;
     color: #010000; 
     font-size: 18px;
-    min-height: 100vh; /* Ensure body covers the entire screen */
+    min-height: 100vh; 
+    animation: fadeIn 2s ease-in-out;
 }
 
 header {
@@ -80,7 +81,7 @@ section#contact a img {
 }
 
 .project {
-    background: linear-gradient(225deg, #b5b0ee, #6c63d0, #b5b0ee); 
+    /* background: ;  */
     padding: 15px;
     margin: 20px auto;
     border-radius: 5px;
@@ -88,6 +89,30 @@ section#contact a img {
     width: 40%; 
     font-size: 18px;
     color: #000000; 
+}
+
+/* Media query for small screens */
+@media (max-width: 600px) {
+    .project {
+        margin: 10px auto;
+        width: 80%;
+    }
+}
+
+/* Media query for medium screens */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .project {
+        margin: 15px auto;
+        width: 60%;
+    }
+}
+
+/* Media query for large screens */
+@media (min-width: 1025px) {
+    .project {
+        margin: 20px auto;
+        width: 40%;
+    }
 }
 
 a {

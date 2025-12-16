@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-// Import Lucide React icons
-import { Code, GitBranch, Database, Cpu, Cloud, Zap, LayoutDashboard, GraduationCap, Briefcase, Star, Smile, Activity, Anchor, Users, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { Code,  Database, Users, Mail, Phone, MapPin, ExternalLink, Brain, Download } from 'lucide-react';
 
 // --- ANIMATION COMPONENT ---
 const RevealOnScroll = ({ children }) => {
@@ -10,12 +9,11 @@ const RevealOnScroll = ({ children }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Update state based on visibility
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.1, // Trigger when 10% of the element is visible
-        rootMargin: "-50px 0px" // Slight offset to trigger animation slightly inwards
+        threshold: 0.1, 
+        rootMargin: "-50px 0px" 
       }
     );
 
@@ -62,7 +60,6 @@ const App = () => {
     console.log("App component mounted.");
   }, []);
 
-  // Data based on Gaurav Patil's Resume
   const contactInfo = {
     name: "Gaurav Patil",
     title: "AI/ML Engineering Student",
@@ -71,10 +68,13 @@ const App = () => {
     linkedin: "https://www.linkedin.com/in/gaurav-patil04",
     github: "https://github.com/GauravPatil04",
     location: "Kolhapur, Maharashtra",
-    leetcode: "100+ problems solved"
+    leetcode: "https://leetcode.com/u/Gaurav__007/", 
+    kaggle: "https://www.kaggle.com/gauravpatil04", 
+    huggingface: "https://huggingface.co/GauravPatil04", 
+    resume: "/GauravPatil_Resume.pdf" 
   };
 
-  const professionalSummary = `Final-year Computer Science student specializing in Artificial Intelligence and Machine Learning at Sanjay Ghodawat University. Proficient in Python, TensorFlow, and scikit-learn with hands-on experience in developing data-driven solutions. Skilled in Data Structures and Algorithms with 100+ problems solved on LeetCode. Seeking to apply strong analytical and problem-solving skills in an AI/ML Engineer role.`;
+  const professionalSummary = `Final-year Computer Science student specializing in Artificial Intelligence and Machine Learning at Sanjay Ghodawat University. Proficient in Python, TensorFlow, and scikit-learn with hands-on experience in developing data-driven solutions. Skilled in Data Structures and Algorithms with 100+ problems solved on LeetCode. Seeking to apply strong analytical and problem-solving skills in an AI/ML Engineer role to contribute to innovative projects.`;
 
   const education = {
     institution: "Sanjay Ghodawat University",
@@ -84,7 +84,6 @@ const App = () => {
     location: "Kolhapur, Maharashtra"
   };
 
-  // Helper to get logo URL (using devicon and other sources)
   const getSkillLogo = (skillName) => {
     const logos = {
       "Python": "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
@@ -120,6 +119,17 @@ const App = () => {
 
   const projects = [
     {
+      title: "PDF_Guru: PDF QA System (RAG)",
+      tech: "Groq Llama 3.3 70B · ChromaDB · Streamlit",
+      description: "A high-performance, privacy-preserving Retrieval-Augmented Generation (RAG) system designed for multi-user environments. Users can upload a PDF and interact with its content using advanced AI—processed entirely in memory for confidentiality.",
+      achievements: [
+        "Privacy by Design: No file storage, all data in RAM",
+        "Enterprise-Grade Pipeline with Groq's Llama 3.3 70B",
+        "Multi-User Safe with isolated session states"
+      ],
+      link: "https://pdfbot-alit4bjkyyblxxerbmqxjr.streamlit.app/"
+    },
+    {
       title: "AI Music Recommendation System",
       tech: "TensorFlow · OpenCV · CNN",
       description: "Developed a real-time AI system that recommends music by analyzing facial expressions through webcam. Built and trained a Convolutional Neural Network for emotion classification and integrated dynamic playlist suggestions.",
@@ -127,7 +137,8 @@ const App = () => {
         "Real-time emotion detection using CNN",
         "Dynamic music playlist generation",
         "OpenCV integration for facial recognition"
-      ]
+      ],
+      link: "#" 
     },
     {
       title: "Diet Guru: Personalized Nutrition Planner",
@@ -137,7 +148,8 @@ const App = () => {
         "Content-based filtering algorithms",
         "Nutritional database integration",
         "Personalized meal planning"
-      ]
+      ],
+      link: "#" 
     },
   ];
 
@@ -154,7 +166,6 @@ const App = () => {
     },
   ];
 
-  // Navigation Links
   const navLinks = [
     { id: 'about', label: 'Summary' },
     { id: 'education', label: 'Education' },
@@ -181,7 +192,7 @@ const App = () => {
       {/* Neuron background component */}
       <NeuronBackground />
 
-      {/* Header Section - Scrolls naturally */}
+      {/* Header Section */}
       <header className="relative z-20 w-full pt-8 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <RevealOnScroll>
@@ -191,7 +202,7 @@ const App = () => {
               <div className="flex items-center gap-6 w-full md:w-auto">
                 <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-teal-500 shadow-lg shrink-0">
                   <img
-                    src="https://placehold.co/176x176/0ea5e9/1e293b?text=GP"
+                    src="assets/img/profile_photo1.JPG" 
                     alt="Gaurav Patil"
                     className="w-full h-full object-cover"
                   />
@@ -200,7 +211,7 @@ const App = () => {
                   <h1 className="text-3xl font-bold text-white tracking-tight">
                     Gaurav Patil
                   </h1>
-                  <p className="text-sm text-gray-400 mt-1">AI & Machine Learning Engineer</p>
+                  <p className="text-sm text-gray-400 mt-1">AI & ML Engineer</p>
                 </div>
               </div>
 
@@ -275,7 +286,7 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 3. Technical Skills (With Logos) */}
+          {/* 3. Technical Skills */}
           <section id="skills" className="scroll-mt-8">
             <RevealOnScroll>
               <div className="flex items-center gap-3 mb-8">
@@ -325,7 +336,11 @@ const App = () => {
                     <div className="relative bg-gray-900/40 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-gray-700 transition-all duration-300 h-full flex flex-col">
                       <div className="flex justify-between items-start mb-4">
                         <h3 className="text-xl font-bold text-white">{project.title}</h3>
-                        <ExternalLink className="w-5 h-5 text-gray-500 group-hover:text-teal-400 transition-colors cursor-pointer" />
+                        {project.link && (
+                          <a href={project.link} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-5 h-5 text-gray-500 group-hover:text-teal-400 transition-colors cursor-pointer" />
+                          </a>
+                        )}
                       </div>
                       <p className="text-xs font-bold tracking-wider text-teal-400 mb-4 uppercase">{project.tech}</p>
                       <p className="text-gray-400 mb-6 leading-relaxed flex-grow">{project.description}</p>
@@ -368,7 +383,7 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 6. Contact Section (Footer) */}
+          {/* 6. Contact Section  */}
           <section id="contact" className="scroll-mt-8 pt-12 border-t border-gray-800">
             <RevealOnScroll>
               <div className="text-center max-w-4xl mx-auto">
@@ -412,30 +427,51 @@ const App = () => {
                    </div>
                 </div>
 
-                <div className="flex justify-center gap-6">
+                {/* Resume Download Button */}
+                <div className="flex justify-center mb-10">
                   <a 
-                    href={contactInfo.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-[#0077b5] text-white rounded-full font-medium hover:bg-[#006399] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                    href={contactInfo.resume} 
+                    download="GauravPatil_Resume.pdf"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-full font-bold tracking-wide transition-all shadow-lg hover:shadow-teal-500/30 hover:-translate-y-1"
                   >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                    LinkedIn
-                  </a>
-                  <a 
-                    href={contactInfo.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-3 bg-[#333] text-white rounded-full font-medium hover:bg-[#242424] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    GitHub
+                    <Download className="w-5 h-5" />
+                    Download Resume
                   </a>
                 </div>
+
+                {/* Social Links  */}
+                <div className="flex flex-wrap justify-center gap-4 mb-12">
+                  {/* LinkedIn */}
+                  <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-[#0077b5] text-gray-300 hover:text-white rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    <span className="font-medium">LinkedIn</span>
+                  </a>
+
+                  {/* GitHub */}
+                  <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-[#333] text-gray-300 hover:text-white rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span className="font-medium">GitHub</span>
+                  </a>
+
+                  {/* LeetCode */}
+                  <a href={contactInfo.leetcode} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-[#FFA116] text-gray-300 hover:text-white rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group">
+                    <Code className="w-5 h-5" />
+                    <span className="font-medium">LeetCode</span>
+                  </a>
+
+                  {/* Kaggle */}
+                  <a href={contactInfo.kaggle} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-[#20BEFF] text-gray-300 hover:text-white rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group">
+                    <Database className="w-5 h-5" />
+                    <span className="font-medium">Kaggle</span>
+                  </a>
+
+                  {/* Hugging Face */}
+                  <a href={contactInfo.huggingface} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-[#FFD21E] text-gray-300 hover:text-black rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group">
+                    <Brain className="w-5 h-5" />
+                    <span className="font-medium">Hugging Face</span>
+                  </a>
+                </div>
+
               </div>
             </RevealOnScroll>
           </section>
@@ -452,7 +488,7 @@ const App = () => {
   );
 };
 
-// --- NEURON BACKGROUND COMPONENT (Optimized) ---
+// --- NEURON BACKGROUND COMPONENT  ---
 const NeuronBackground = () => {
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
@@ -466,7 +502,7 @@ const NeuronBackground = () => {
     connectionLineWidth: 0.2,
     neuronColor: 'rgba(94, 234, 212, 0.6)',
     connectionColor: 'rgba(139, 92, 246, 0.3)',
-    mouseInteractionRadius: 200, // Increased radius
+    mouseInteractionRadius: 200, 
     neuronSpeed: 0.05,
   };
 
@@ -500,8 +536,7 @@ const NeuronBackground = () => {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < config.mouseInteractionRadius) {
-          const force = (1 - distance / config.mouseInteractionRadius) * 0.005; // Force multiplier
-          // Change to repulsion (moving away from mouse)
+          const force = (1 - distance / config.mouseInteractionRadius) * 0.005; 
           neuron.vx -= dx * force; 
           neuron.vy -= dy * force;
         }

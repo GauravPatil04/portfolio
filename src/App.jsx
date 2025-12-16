@@ -1,17 +1,59 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 // Import Lucide React icons
-import { Code, GitBranch, Database, Cpu, Cloud, Zap, LayoutDashboard, GraduationCap, Briefcase, Star, Smile, Activity, Anchor, Users } from 'lucide-react'; // <-- Added Users here
+import { Code, GitBranch, Database, Cpu, Cloud, Zap, LayoutDashboard, GraduationCap, Briefcase, Star, Smile, Activity, Anchor, Users, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+
+// --- ANIMATION COMPONENT ---
+const RevealOnScroll = ({ children }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Update state based on visibility
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: "-50px 0px" // Slight offset to trigger animation slightly inwards
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-1000 ease-in-out transform ${
+        isVisible 
+          ? 'opacity-100 translate-y-0 blur-0' 
+          : 'opacity-0 translate-y-12 blur-sm'
+      }`}
+    >
+      {children}
+    </div>
+  );
+};
 
 // --- MAIN APP COMPONENT ---
 const App = () => {
   // State to manage the active section for navigation
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('about');
 
   // Function to handle smooth scrolling to sections
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setActiveSection(id);
     }
   };
@@ -23,90 +65,115 @@ const App = () => {
   // Data based on Gaurav Patil's Resume
   const contactInfo = {
     name: "Gaurav Patil",
-    handle: "AI/ML Engineer Aspirant",
-    phone: "+91-9158437110",
+    title: "AI/ML Engineering Student",
+    phone: "+91 9158437110",
     email: "gauravsp004@gmail.com",
-    linkedin: "LinkedIn", // Replace with actual URL if known
-    github: "GitHub", // Replace with actual URL if known
+    linkedin: "https://www.linkedin.com/in/gaurav-patil04",
+    github: "https://github.com/GauravPatil04",
     location: "Kolhapur, Maharashtra",
+    leetcode: "100+ problems solved"
   };
 
-  const professionalSummary = `Final-year Computer Science student specializing in Artificial Intelligence and Machine Learning. Proficient in Python, TensorFlow, and scikit-learn, with hands-on experience in developing data-driven solutions. Skilled in Data Structures and Algorithms with 100+ problems solved on LeetCode. Eager to apply strong analytical and problem-solving skills in an AI/ML Engineer role to contribute to innovative projects.`;
+  const professionalSummary = `Final-year Computer Science student specializing in Artificial Intelligence and Machine Learning at Sanjay Ghodawat University. Proficient in Python, TensorFlow, and scikit-learn with hands-on experience in developing data-driven solutions. Skilled in Data Structures and Algorithms with 100+ problems solved on LeetCode. Seeking to apply strong analytical and problem-solving skills in an AI/ML Engineer role.`;
 
   const education = {
     institution: "Sanjay Ghodawat University",
-    degree: "Bachelor of Technology (B. Tech) in Artificial Intelligence & Machine Learning",
-    gpa: "3.3/10 (Cumulative GPA)",
+    degree: "B.Tech in Artificial Intelligence & Machine Learning",
+    duration: "2022 - 2026",
+    gpa: "8.3 CGPA",
+    location: "Kolhapur, Maharashtra"
+  };
+
+  // Helper to get logo URL (using devicon and other sources)
+  const getSkillLogo = (skillName) => {
+    const logos = {
+      "Python": "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
+      "SQL": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg", // Using MySQL icon for SQL
+      "TensorFlow": "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg",
+      "Scikit-learn": "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
+      "Pandas": "https://raw.githubusercontent.com/devicons/devicon/master/icons/pandas/pandas-original.svg",
+      "NumPy": "https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg",
+      "Matplotlib": "https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg",
+      "Seaborn": "https://seaborn.pydata.org/_images/logo-mark-lightbg.svg",
+      "Git": "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg",
+      "GitHub": "https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg",
+      "Docker": "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg",
+      "MySQL": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg"
+    };
+    return logos[skillName] || null;
   };
 
   const technicalSkills = [
-    { type: "Languages", skills: "Python, SQL" },
-    { type: "Libraries & Frameworks", skills: "TensorFlow, Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn" },
-    { type: "Tools & Technologies", skills: "Git, GitHub, Docker (from Cubicles Club)" },
-    { type: "Databases", skills: "MySQL" },
+    { 
+      category: "Programming", 
+      skills: ["Python", "SQL"] 
+    },
+    { 
+      category: "Machine Learning", 
+      skills: ["TensorFlow", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn"] 
+    },
+    { 
+      category: "Tools & Platforms", 
+      skills: ["Git", "GitHub", "Docker", "MySQL"] 
+    },
   ];
 
   const projects = [
     {
       title: "AI Music Recommendation System",
-      location: "Kolhapur Maharashtra",
-      description: [
-        "Developed a real-time AI system that recommends music by analyzing facial expressions through a webcam.",
-        "Built and trained a Convolutional Neural Network (CNN) using TensorFlow and OpenCV, for classifying emotions like happy, sad, and neutral.",
-        "Integrated the emotion detection model to dynamically create and suggest playlists that match the user's current mood.",
-      ],
-      icon: <Smile className="w-6 h-6 mr-2 text-teal-300" />
+      tech: "TensorFlow · OpenCV · CNN",
+      description: "Developed a real-time AI system that recommends music by analyzing facial expressions through webcam. Built and trained a Convolutional Neural Network for emotion classification and integrated dynamic playlist suggestions.",
+      achievements: [
+        "Real-time emotion detection using CNN",
+        "Dynamic music playlist generation",
+        "OpenCV integration for facial recognition"
+      ]
     },
     {
       title: "Diet Guru: Personalized Nutrition Planner",
-      location: "",
-      description: [
-        "Designed and developed a personalized diet recommendation system to generate meal plans based on user health goals, dietary restrictions, and preferences.",
-        "Utilized content-based filtering algorithms with Scikit-learn to match user profiles against a nutritional database for different food items.",
-      ],
-      icon: <Activity className="w-6 h-6 mr-2 text-purple-300" />
+      tech: "Scikit-learn · Content Filtering · Python",
+      description: "Designed a personalized diet recommendation system using content-based filtering algorithms. Generates meal plans based on user health goals, dietary restrictions, and nutritional profiles.",
+      achievements: [
+        "Content-based filtering algorithms",
+        "Nutritional database integration",
+        "Personalized meal planning"
+      ]
     },
   ];
 
   const activities = [
     {
       title: "NSS Volunteer",
-      duration: "2024-Present",
-      description: [
-        "Contributed to community service initiatives, including cleanliness drives and public awareness campaigns.",
-        "Collaborated with a team to organize and execute local community events, enhancing organizational and teamwork skills.",
-      ],
-      icon: <Anchor className="w-6 h-6 mr-2 text-yellow-300" />
+      duration: "2024 - Present",
+      description: "Contributed to community service initiatives including cleanliness drives and public awareness campaigns. Enhanced organizational and teamwork skills through local community events.",
     },
     {
-      title: "Cubicles Club",
-      duration: "2024-Present",
-      description: [
-        "Actively participated in workshops on emerging technologies like Docker and Git & GitHub.",
-        "Collaborated with peers in coding mini-projects, fostering practical problem-solving skills.",
-      ],
-      icon: <Code className="w-6 h-6 mr-2 text-red-300" />
+      title: "Cubicles Club Member",
+      duration: "2024 - Present",
+      description: "Participated in workshops on Docker, Git, and emerging technologies. Collaborated with peers on coding projects, fostering practical problem-solving skills.",
     },
   ];
 
-  // Updated Navigation Links
+  // Navigation Links
   const navLinks = [
     { id: 'about', label: 'Summary' },
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
-    { id: 'activities', label: 'Activities' },
     { id: 'contact', label: 'Contact' },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100 font-inter relative overflow-hidden">
+    <div className="min-h-screen bg-gray-950 text-gray-100 font-inter relative overflow-x-hidden">
       {/* Global font style */}
       <style>
         {`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
           body {
             font-family: 'Inter', sans-serif;
+          }
+          ::selection {
+            background-color: rgba(94, 234, 212, 0.3);
           }
         `}
       </style>
@@ -114,377 +181,401 @@ const App = () => {
       {/* Neuron background component */}
       <NeuronBackground />
 
-      {/* Main content container (Responsive) */}
-      <div className="relative z-10 p-4 md:p-8 max-w-6xl mx-auto">
-        {/* Header section (Responsive) */}
-        <header id="home" className="sticky top-0 z-50 flex flex-col md:flex-row justify-between items-center py-4 px-4 md:px-8 bg-gray-900/95 backdrop-blur-sm rounded-xl shadow-2xl mb-8 border-b border-gray-700/50">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-teal-400 mb-4 md:mb-0">
-            {contactInfo.name}
-          </h1>
-          <nav>
-            <ul className="flex flex-wrap justify-center gap-3 text-sm md:text-base">
-              {navLinks.map(link => (
-                <li key={link.id}>
-                  <button
-                    onClick={() => scrollToSection(link.id)}
-                    className="px-3 py-1 rounded-full text-gray-300 hover:bg-purple-600 hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </header>
-
-        {/* Hero & Professional Summary Section */}
-        <section id="about" className="py-16 px-4 md:px-8 bg-gray-800 bg-opacity-70 rounded-xl shadow-lg mb-12 border border-gray-700">
-          <div className="flex flex-col lg:flex-row items-start gap-8">
-            
-            {/* Left Column: Contact and Profile */}
-            <div className="w-full lg:w-1/3 flex flex-col items-center lg:items-start text-center lg:text-left p-4 bg-gray-700 rounded-lg shadow-md">
-              <div className="w-32 h-32 mb-4 flex-shrink-0 rounded-full overflow-hidden border-4 border-teal-400 shadow-xl">
-                <img
-                  src="https://placehold.co/128x128/4A00B0/FFFFFF?text=GP"
-                  alt={`${contactInfo.name} Profile`}
-                  className="w-full h-full object-cover"
-                  onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/128x128/4A00B0/FFFFFF?text=GP"; }}
-                />
-              </div>
-              <h2 className="text-3xl font-bold text-white">{contactInfo.name}</h2>
-              <p className="text-md text-teal-300 mb-4">{contactInfo.handle}</p>
+      {/* Header Section - Scrolls naturally */}
+      <header className="relative z-20 w-full pt-8 pb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <RevealOnScroll>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               
-              <div className="text-sm text-gray-400 space-y-1">
-                <p>Location: {contactInfo.location}</p>
-                <p>Phone: {contactInfo.phone}</p>
-                <p>Email: {contactInfo.email}</p>
+              {/* Left: Photo & Name */}
+              <div className="flex items-center gap-6 w-full md:w-auto">
+                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-teal-500 shadow-lg shrink-0">
+                  <img
+                    src="https://placehold.co/176x176/0ea5e9/1e293b?text=GP"
+                    alt="Gaurav Patil"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h1 className="text-3xl font-bold text-white tracking-tight">
+                    Gaurav Patil
+                  </h1>
+                  <p className="text-sm text-gray-400 mt-1">AI & Machine Learning Engineer</p>
+                </div>
               </div>
 
-              <div className="mt-4 flex gap-4">
-                 {/* LinkedIn Icon */}
-                <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-purple-400 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
-                {/* GitHub Icon */}
-                <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-purple-400 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.44-.78-3.5.25-1.15.25-2.39 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.1-.3 2.3 0 3.5A5.4 5.4 0 0 0 4 12.5c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                </a>
-              </div>
+              {/* Right: Navigation */}
+              <nav className="w-full md:w-auto flex justify-center md:justify-end">
+                <div className="flex flex-wrap justify-center gap-2 bg-gray-900/50 p-2 rounded-full border border-gray-800 backdrop-blur-sm">
+                  {navLinks.map(link => (
+                    <button
+                      key={link.id}
+                      onClick={() => scrollToSection(link.id)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                        activeSection === link.id 
+                          ? 'bg-teal-500 text-white shadow-lg' 
+                          : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                      }`}
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </div>
+              </nav>
             </div>
+          </RevealOnScroll>
+        </div>
+      </header>
 
-            {/* Right Column: Summary Text */}
-            <div className="w-full lg:w-2/3 pt-4 lg:pt-0">
-              <h3 className="text-3xl font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2 flex items-center">
-                <Briefcase className="w-6 h-6 mr-2"/> PROFESSIONAL SUMMARY
-              </h3>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                {professionalSummary}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Education Section */}
-        <section id="education" className="py-16 px-4 md:px-8 bg-gray-900/70 rounded-xl shadow-lg mb-12 border border-gray-700">
-          <h2 className="text-4xl font-bold text-teal-300 mb-8 text-center flex justify-center items-center">
-            <GraduationCap className="w-8 h-8 mr-3"/> EDUCATION
-          </h2>
-          <div className="bg-gray-800 p-6 rounded-xl shadow-xl border-l-4 border-teal-500">
-            <h3 className="text-2xl font-semibold text-white">{education.degree}</h3>
-            <p className="text-xl text-purple-400 mb-2">{education.institution}</p>
-            <p className="text-md text-gray-400">GPA: {education.gpa}</p>
-            <p className="text-md text-gray-400 mt-1">Location: Kolhapur, Maharashtra</p>
-          </div>
-        </section>
-
-        {/* Technical Skills Section */}
-        <section id="skills" className="py-16 px-4 md:px-8 bg-gray-800 bg-opacity-70 rounded-xl shadow-lg mb-12 border border-gray-700">
-          <h2 className="text-4xl font-bold text-purple-400 mb-8 text-center flex justify-center items-center">
-            <Cpu className="w-8 h-8 mr-3"/> TECHNICAL SKILLS
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {technicalSkills.map((section, index) => (
-              <div 
-                key={index} 
-                className="p-6 bg-gray-700 rounded-xl shadow-md border-b-2 border-teal-500"
-              >
-                <h3 className="text-xl font-bold text-teal-300 mb-3">{section.type}</h3>
-                <p className="text-lg text-gray-200">{section.skills}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-
-        {/* Projects Section */}
-        <section id="projects" className="py-16 px-4 md:px-8 bg-gray-900/70 rounded-xl shadow-lg mb-12 border border-gray-700">
-          <h2 className="text-4xl font-bold text-teal-300 mb-10 text-center flex justify-center items-center">
-            <LayoutDashboard className="w-8 h-8 mr-3"/> PROJECTS
-          </h2>
+      {/* Main content container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <main className="space-y-20">
           
-          <div className="space-y-8">
-            {projects.map((project, index) => (
-              <div 
-                key={index} 
-                className="p-6 bg-gray-800 rounded-xl shadow-xl hover:shadow-2xl transition-shadow duration-300 border-l-4 border-purple-500"
-              >
-                <h3 className="text-2xl font-semibold text-white mb-2 flex items-center">
-                  {project.icon} {project.title}
-                </h3>
-                {project.location && <p className="text-sm text-gray-400 mb-3">{project.location}</p>}
+          {/* 1. Professional Summary */}
+          <section id="about" className="scroll-mt-8">
+            <RevealOnScroll>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-0.5 bg-teal-500"></div>
+                <h2 className="text-3xl font-bold text-white">Professional Summary</h2>
+              </div>
+              <div className="prose prose-lg prose-invert max-w-none bg-gray-900/40 p-8 rounded-2xl border border-gray-800 shadow-xl backdrop-blur-sm">
+                <p className="text-gray-300 leading-relaxed text-lg">
+                  {professionalSummary}
+                </p>
+              </div>
+            </RevealOnScroll>
+          </section>
+
+          {/* 2. Education */}
+          <section id="education" className="scroll-mt-8">
+            <RevealOnScroll>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-0.5 bg-purple-500"></div>
+                <h2 className="text-3xl font-bold text-white">Education</h2>
+              </div>
+              
+              <div className="bg-gray-900/40 rounded-2xl p-8 border border-gray-800 shadow-xl hover:border-purple-500/30 transition-colors duration-300 backdrop-blur-sm">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">{education.degree}</h3>
+                    <p className="text-xl text-teal-400 font-medium mb-1">{education.institution}</p>
+                    <p className="text-gray-400 flex items-center gap-2">
+                      <MapPin className="w-4 h-4"/> {education.location}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-start md:items-end mt-4 md:mt-0">
+                    <span className="inline-block px-4 py-2 rounded-lg bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30 mb-2">
+                      {education.gpa}
+                    </span>
+                    <span className="text-gray-500 text-sm">{education.duration}</span>
+                  </div>
+                </div>
+              </div>
+            </RevealOnScroll>
+          </section>
+
+          {/* 3. Technical Skills (With Logos) */}
+          <section id="skills" className="scroll-mt-8">
+            <RevealOnScroll>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-0.5 bg-blue-500"></div>
+                <h2 className="text-3xl font-bold text-white">Technical Skills</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {technicalSkills.map((skillGroup, index) => (
+                  <div key={index} className="bg-gray-900/40 rounded-2xl p-6 border border-gray-800 shadow-xl backdrop-blur-sm">
+                    <h3 className="text-xl font-semibold text-gray-200 mb-6 flex items-center gap-2 border-b border-gray-800 pb-3">
+                      {skillGroup.category}
+                    </h3>
+                    <div className="grid grid-cols-3 gap-4">
+                      {skillGroup.skills.map((skill, skillIndex) => {
+                        const logoUrl = getSkillLogo(skill);
+                        return (
+                          <div key={skillIndex} className="flex flex-col items-center gap-2 group">
+                            <div className="w-14 h-14 rounded-xl bg-gray-800/80 flex items-center justify-center p-3 group-hover:bg-gray-700 transition-colors duration-300 border border-gray-700 group-hover:border-teal-500/50">
+                               {logoUrl ? (
+                                 <img src={logoUrl} alt={skill} className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" />
+                               ) : (
+                                 <Code className="w-6 h-6 text-gray-400" />
+                               )}
+                            </div>
+                            <span className="text-xs text-gray-400 text-center font-medium group-hover:text-teal-400 transition-colors">{skill}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </RevealOnScroll>
+          </section>
+
+          {/* 4. Projects */}
+          <section id="projects" className="scroll-mt-8">
+            <RevealOnScroll>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-0.5 bg-teal-500"></div>
+                <h2 className="text-3xl font-bold text-white">Projects</h2>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {projects.map((project, index) => (
+                  <div key={index} className="group relative h-full">
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-500 to-purple-500 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-500"></div>
+                    <div className="relative bg-gray-900/40 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-gray-700 transition-all duration-300 h-full flex flex-col">
+                      <div className="flex justify-between items-start mb-4">
+                        <h3 className="text-xl font-bold text-white">{project.title}</h3>
+                        <ExternalLink className="w-5 h-5 text-gray-500 group-hover:text-teal-400 transition-colors cursor-pointer" />
+                      </div>
+                      <p className="text-xs font-bold tracking-wider text-teal-400 mb-4 uppercase">{project.tech}</p>
+                      <p className="text-gray-400 mb-6 leading-relaxed flex-grow">{project.description}</p>
+                      <div className="space-y-3 pt-4 border-t border-gray-800/50">
+                        {project.achievements.map((achievement, idx) => (
+                          <div key={idx} className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-teal-500 mt-2 flex-shrink-0"></div>
+                            <span className="text-gray-300 text-sm">{achievement}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </RevealOnScroll>
+          </section>
+
+          {/* 5. Activities */}
+          <section className="scroll-mt-8">
+            <RevealOnScroll>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-0.5 bg-purple-500"></div>
+                <h2 className="text-3xl font-bold text-white">Activities & Leadership</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {activities.map((activity, index) => (
+                  <div key={index} className="bg-gray-900/40 p-8 rounded-2xl border border-gray-800 backdrop-blur-sm hover:bg-gray-900/60 transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Users className="w-5 h-5 text-purple-400"/>
+                        {activity.title}
+                      </h3>
+                      <span className="text-xs font-semibold text-gray-400 bg-gray-800 px-3 py-1 rounded-full border border-gray-700">{activity.duration}</span>
+                    </div>
+                    <p className="text-gray-400 leading-relaxed">{activity.description}</p>
+                  </div>
+                ))}
+              </div>
+            </RevealOnScroll>
+          </section>
+
+          {/* 6. Contact Section (Footer) */}
+          <section id="contact" className="scroll-mt-8 pt-12 border-t border-gray-800">
+            <RevealOnScroll>
+              <div className="text-center max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold text-white mb-6">Let's Connect</h2>
+                <p className="text-gray-400 mb-12 text-lg">
+                  I'm actively seeking AI/ML engineering opportunities and would love to discuss how I can contribute to your team.
+                </p>
                 
-                <ul className="space-y-2 text-gray-300 list-disc list-inside">
-                  {project.description.map((item, i) => (
-                    <li key={i} className="text-base leading-relaxed">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                   {/* Email */}
+                   <a href={`mailto:${contactInfo.email}`} className="flex flex-col items-center justify-center gap-4 p-6 rounded-2xl bg-gray-900/40 hover:bg-gray-800 border border-gray-800 hover:border-teal-500/50 transition-all group backdrop-blur-sm">
+                      <div className="p-3 bg-teal-500/10 rounded-xl group-hover:scale-110 transition-transform">
+                        <Mail className="w-6 h-6 text-teal-400" />
+                      </div>
+                      <div className="text-center">
+                        <span className="block text-sm text-gray-500 mb-1">Email</span>
+                        <span className="text-gray-300 font-medium">{contactInfo.email}</span>
+                      </div>
+                   </a>
+
+                   {/* Phone */}
+                   <div className="flex flex-col items-center justify-center gap-4 p-6 rounded-2xl bg-gray-900/40 border border-gray-800 backdrop-blur-sm">
+                      <div className="p-3 bg-purple-500/10 rounded-xl">
+                        <Phone className="w-6 h-6 text-purple-400" />
+                      </div>
+                      <div className="text-center">
+                        <span className="block text-sm text-gray-500 mb-1">Phone</span>
+                        <span className="text-gray-300 font-medium">{contactInfo.phone}</span>
+                      </div>
+                   </div>
+
+                   {/* Location */}
+                   <div className="flex flex-col items-center justify-center gap-4 p-6 rounded-2xl bg-gray-900/40 border border-gray-800 backdrop-blur-sm">
+                      <div className="p-3 bg-blue-500/10 rounded-xl">
+                        <MapPin className="w-6 h-6 text-blue-400" />
+                      </div>
+                      <div className="text-center">
+                        <span className="block text-sm text-gray-500 mb-1">Location</span>
+                        <span className="text-gray-300 font-medium">{contactInfo.location}</span>
+                      </div>
+                   </div>
+                </div>
+
+                <div className="flex justify-center gap-6">
+                  <a 
+                    href={contactInfo.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-[#0077b5] text-white rounded-full font-medium hover:bg-[#006399] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    LinkedIn
+                  </a>
+                  <a 
+                    href={contactInfo.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-[#333] text-white rounded-full font-medium hover:bg-[#242424] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Activities & Leadership Section (Renamed from Open Source/Experience placeholders) */}
-        <section id="activities" className="py-16 px-4 md:px-8 bg-gray-800 bg-opacity-70 rounded-xl shadow-lg mb-12 border border-gray-700">
-          <h2 className="text-4xl font-bold text-purple-400 mb-8 text-center flex justify-center items-center">
-            <Users className="w-8 h-8 mr-3"/> ACTIVITIES & LEADERSHIP
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {activities.map((activity, index) => (
-              <div 
-                key={index} 
-                className="p-6 bg-gray-700 rounded-xl shadow-md border-r-4 border-pink-500"
-              >
-                <h3 className="text-xl font-bold text-teal-300 mb-1 flex items-center">
-                  {activity.icon} {activity.title}
-                </h3>
-                <p className="text-sm text-gray-400 mb-3">{activity.duration}</p>
-                <ul className="space-y-1 text-gray-300 list-disc list-inside text-sm">
-                  {activity.description.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <h3 className="text-2xl font-bold text-teal-300 mb-3">Interests</h3>
-            <p className="text-lg text-gray-300">⚽ Football & 🏞️ Hiking</p>
-          </div>
-        </section>
-
-
-        {/* Contact section */}
-        <section id="contact" className="py-16 px-4 md:px-8 bg-gray-900/70 rounded-xl shadow-lg mb-12 border border-gray-700">
-          <h2 className="text-4xl font-bold text-teal-300 mb-6 text-center">Contact Me</h2>
-          <div className="text-center text-lg text-gray-300">
-            <p className="mb-4">I'm actively seeking an AI/ML Engineer role. Feel free to connect regarding opportunities or collaborations!</p>
-            <p className="mb-2">
-              Email: <a href={`mailto:${contactInfo.email}`} className="text-purple-400 hover:underline">{contactInfo.email}</a>
-            </p>
-            <p className="mb-4">
-              Phone: <span className="text-purple-400">{contactInfo.phone}</span>
-            </p>
-            <div className="flex justify-center gap-6 mt-4">
-              {/* LinkedIn icon */}
-              <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-              {/* GitHub icon */}
-              <a href={contactInfo.github} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.44-.78-3.5.25-1.15.25-2.39 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.1-.3 2.3 0 3.5A5.4 5.4 0 0 0 4 12.5c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-              </a>
-            </div>
-          </div>
-        </section>
+            </RevealOnScroll>
+          </section>
+        </main>
 
         {/* Footer */}
-        <footer className="text-center py-6 px-4 md:px-8 bg-gray-900 bg-opacity-70 rounded-xl shadow-lg mt-8">
-          <p className="text-gray-400 text-sm">&copy; {new Date().getFullYear()} Gaurav Patil. Inspired by ML. All rights reserved.</p>
+        <footer className="mt-20 pt-8 border-t border-gray-800 text-center pb-8">
+          <p className="text-gray-500 text-sm">
+            © {new Date().getFullYear()} Gaurav Patil. Crafted with passion for AI/ML innovation.
+          </p>
         </footer>
       </div>
     </div>
   );
 };
 
-// --- NEURON BACKGROUND COMPONENT (Kept as requested) ---
+// --- NEURON BACKGROUND COMPONENT (Optimized) ---
 const NeuronBackground = () => {
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
   const neurons = useRef([]);
   const mouse = useRef({ x: null, y: null });
 
-  // Configuration for the neuron animation
   const config = {
-    neuronCount: 100, // Number of neurons
-    neuronRadius: 1.5, // Radius of each neuron
-    connectionDistance: 120, // Max distance for neurons to connect
-    connectionLineWidth: 0.3, // Line width for connections
-    neuronColor: 'rgba(100, 255, 218, 0.8)', // Teal color for neurons
-    connectionColor: 'rgba(147, 197, 253, 0.5)', // Light blue for connections
-    mouseInteractionRadius: 200, // Radius around mouse for neuron attraction/repulsion
-    neuronSpeed: 0.1, // Base speed of neuron movement
+    neuronCount: 80,
+    neuronRadius: 1.2,
+    connectionDistance: 100,
+    connectionLineWidth: 0.2,
+    neuronColor: 'rgba(94, 234, 212, 0.6)',
+    connectionColor: 'rgba(139, 92, 246, 0.3)',
+    mouseInteractionRadius: 200, // Increased radius
+    neuronSpeed: 0.05,
   };
 
-  // Function to initialize neurons
   const initNeurons = useCallback((canvas) => {
-    try {
-      const newNeurons = [];
-      for (let i = 0; i < config.neuronCount; i++) {
-        newNeurons.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          // Random initial velocity
-          vx: (Math.random() - 0.5) * config.neuronSpeed * 2,
-          vy: (Math.random() - 0.5) * config.neuronSpeed * 2,
-          radius: config.neuronRadius,
-          // Store original position for reset or oscillation
-          ox: Math.random() * canvas.width,
-          oy: Math.random() * canvas.height,
-        });
-      }
-      neurons.current = newNeurons;
-    } catch (error) {
-      console.error("Error initializing neurons:", error);
+    const newNeurons = [];
+    for (let i = 0; i < config.neuronCount; i++) {
+      newNeurons.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * config.neuronSpeed,
+        vy: (Math.random() - 0.5) * config.neuronSpeed,
+        radius: config.neuronRadius,
+      });
     }
+    neurons.current = newNeurons;
   }, [config.neuronCount, config.neuronRadius, config.neuronSpeed]);
 
-  // Function to draw everything on the canvas
   const draw = useCallback((ctx, canvas) => {
-    try {
-      // Clear the canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw neurons
-      neurons.current.forEach(neuron => {
-        // Update neuron position
-        neuron.x += neuron.vx;
-        neuron.y += neuron.vy;
+    neurons.current.forEach(neuron => {
+      neuron.x += neuron.vx;
+      neuron.y += neuron.vy;
 
-        // Bounce off walls
-        if (neuron.x < 0 || neuron.x > canvas.width) neuron.vx *= -1;
-        if (neuron.y < 0 || neuron.y > canvas.height) neuron.vy *= -1;
+      if (neuron.x < 0 || neuron.x > canvas.width) neuron.vx *= -1;
+      if (neuron.y < 0 || neuron.y > canvas.height) neuron.vy *= -1;
 
-        // Simple attraction/repulsion from mouse
-        if (mouse.current.x !== null && mouse.current.y !== null) {
-          const dx = mouse.current.x - neuron.x;
-          const dy = mouse.current.y - neuron.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+      if (mouse.current.x !== null && mouse.current.y !== null) {
+        const dx = mouse.current.x - neuron.x;
+        const dy = mouse.current.y - neuron.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < config.mouseInteractionRadius) {
-            const force = (1 - distance / config.mouseInteractionRadius) * 0.005; // Adjust force strength
-            neuron.vx -= dx * force;
-            neuron.vy -= dy * force;
-          }
-        }
-
-        // Draw neuron
-        ctx.beginPath();
-        ctx.arc(neuron.x, neuron.y, neuron.radius, 0, Math.PI * 2);
-        ctx.fillStyle = config.neuronColor;
-        ctx.fill();
-      });
-
-      // Draw connections between neurons
-      for (let i = 0; i < neurons.current.length; i++) {
-        for (let j = i + 1; j < neurons.current.length; j++) {
-          const n1 = neurons.current[i];
-          const n2 = neurons.current[j];
-
-          const dx = n1.x - n2.x;
-          const dy = n1.y - n2.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < config.connectionDistance) {
-            ctx.beginPath();
-            ctx.moveTo(n1.x, n1.y);
-            ctx.lineTo(n2.x, n2.y);
-            // Connection opacity based on distance
-            ctx.strokeStyle = config.connectionColor.replace('0.5', (1 - distance / config.connectionDistance).toFixed(2));
-            ctx.lineWidth = config.connectionLineWidth;
-            ctx.stroke();
-          }
+        if (distance < config.mouseInteractionRadius) {
+          const force = (1 - distance / config.mouseInteractionRadius) * 0.005; // Force multiplier
+          // Change to repulsion (moving away from mouse)
+          neuron.vx -= dx * force; 
+          neuron.vy -= dy * force;
         }
       }
-    } catch (error) {
-      console.error("Error in draw function:", error);
-    }
-  }, [config.connectionDistance, config.connectionLineWidth, config.neuronColor, config.connectionColor, config.mouseInteractionRadius]);
 
-  // Animation loop
-  const animate = useCallback(() => {
-    try {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      draw(ctx, canvas);
-      animationFrameId.current = requestAnimationFrame(animate);
-    } catch (error) {
-      console.error("Error in animate loop:", error);
+      ctx.beginPath();
+      ctx.arc(neuron.x, neuron.y, neuron.radius, 0, Math.PI * 2);
+      ctx.fillStyle = config.neuronColor;
+      ctx.fill();
+    });
+
+    for (let i = 0; i < neurons.current.length; i++) {
+      for (let j = i + 1; j < neurons.current.length; j++) {
+        const n1 = neurons.current[i];
+        const n2 = neurons.current[j];
+        const dx = n1.x - n2.x;
+        const dy = n1.y - n2.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < config.connectionDistance) {
+          ctx.beginPath();
+          ctx.moveTo(n1.x, n1.y);
+          ctx.lineTo(n2.x, n2.y);
+          ctx.strokeStyle = config.connectionColor.replace('0.3', (0.5 - distance / config.connectionDistance).toFixed(2));
+          ctx.lineWidth = config.connectionLineWidth;
+          ctx.stroke();
+        }
+      }
     }
+  }, [config]);
+
+  const animate = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    draw(ctx, canvas);
+    animationFrameId.current = requestAnimationFrame(animate);
   }, [draw]);
 
-  // Effect for canvas setup and animation start
   useEffect(() => {
-    try {
-      const canvas = canvasRef.current;
-      // Ensure canvas and its context are available
-      if (!canvas) {
-        console.warn("Canvas element not available.");
-        return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const setCanvasDimensions = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = document.documentElement.scrollHeight;
+      initNeurons(canvas);
+    };
+
+    setCanvasDimensions();
+
+    const handleMouseMove = (e) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+    };
+
+    window.addEventListener('resize', setCanvasDimensions);
+    window.addEventListener('mousemove', handleMouseMove);
+    animationFrameId.current = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('resize', setCanvasDimensions);
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
       }
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        console.error("2D context not available for canvas.");
-        return;
-      }
-
-      // Set canvas dimensions to fill the window
-      const setCanvasDimensions = () => {
-        try {
-          canvas.width = window.innerWidth;
-          // Use document.body.scrollHeight to account for dynamic content height
-          canvas.height = Math.max(document.body.scrollHeight, window.innerHeight); 
-          initNeurons(canvas); // Re-initialize neurons on resize
-        } catch (error) {
-          console.error("Error setting canvas dimensions or initializing neurons on resize:", error);
-        }
-      };
-
-      setCanvasDimensions(); // Initial set
-
-      // Event listener for window resize
-      window.addEventListener('resize', setCanvasDimensions);
-
-      // Event listener for mouse movement
-      const handleMouseMove = (e) => {
-        mouse.current = { x: e.clientX, y: e.clientY + window.scrollY }; // Adjust for scroll position
-      };
-      window.addEventListener('mousemove', handleMouseMove);
-
-      // Start animation
-      animationFrameId.current = requestAnimationFrame(animate);
-
-      // Cleanup function
-      return () => {
-        window.removeEventListener('resize', setCanvasDimensions);
-        window.removeEventListener('mousemove', handleMouseMove);
-        if (animationFrameId.current) {
-          cancelAnimationFrame(animationFrameId.current);
-        }
-        console.log("NeuronBackground cleanup completed.");
-      };
-    } catch (error) {
-      console.error("Error in NeuronBackground useEffect:", error);
-    }
-  }, [animate, initNeurons]); // Dependencies for useEffect
+    };
+  }, [animate, initNeurons]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 0 }} // Ensure canvas is behind content
-    ></canvas>
+      className="fixed top-0 left-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 0 }}
+    />
   );
 };
 

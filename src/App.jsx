@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Code,  Database, Users, Mail, Phone, MapPin, ExternalLink, Brain, Download } from 'lucide-react';
+// Import Lucide React icons
+import { Code, GitBranch, Database, Cpu, Cloud, Zap, LayoutDashboard, GraduationCap, Briefcase, Star, Smile, Activity, Anchor, Users, Mail, Phone, MapPin, ExternalLink, FileText, Brain, Download } from 'lucide-react';
 
 // --- ANIMATION COMPONENT ---
 const RevealOnScroll = ({ children }) => {
@@ -9,11 +10,12 @@ const RevealOnScroll = ({ children }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        // Update state based on visibility
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.1, 
-        rootMargin: "-50px 0px" 
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: "-50px 0px" // Slight offset to trigger animation slightly inwards
       }
     );
 
@@ -60,6 +62,7 @@ const App = () => {
     console.log("App component mounted.");
   }, []);
 
+  // Data based on Gaurav Patil's Resume
   const contactInfo = {
     name: "Gaurav Patil",
     title: "AI/ML Engineering Student",
@@ -68,10 +71,10 @@ const App = () => {
     linkedin: "https://www.linkedin.com/in/gaurav-patil04",
     github: "https://github.com/GauravPatil04",
     location: "Kolhapur, Maharashtra",
-    leetcode: "https://leetcode.com/u/Gaurav__007/", 
+    leetcode: "https://leetcode.com/u/GauravPatil04/", 
     kaggle: "https://www.kaggle.com/gauravpatil04", 
     huggingface: "https://huggingface.co/GauravPatil04", 
-    resume: "/GauravPatil_Resume.pdf" 
+    resume: "/GauravPatil_Resume.pdf" // Ensure this file is in your 'public' folder
   };
 
   const professionalSummary = `Final-year Computer Science student specializing in Artificial Intelligence and Machine Learning at Sanjay Ghodawat University. Proficient in Python, TensorFlow, and scikit-learn with hands-on experience in developing data-driven solutions. Skilled in Data Structures and Algorithms with 100+ problems solved on LeetCode. Seeking to apply strong analytical and problem-solving skills in an AI/ML Engineer role to contribute to innovative projects.`;
@@ -84,6 +87,7 @@ const App = () => {
     location: "Kolhapur, Maharashtra"
   };
 
+  // Helper to get logo URL (using devicon and other sources)
   const getSkillLogo = (skillName) => {
     const logos = {
       "Python": "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
@@ -127,7 +131,7 @@ const App = () => {
         "Enterprise-Grade Pipeline with Groq's Llama 3.3 70B",
         "Multi-User Safe with isolated session states"
       ],
-      link: "https://pdfbot-alit4bjkyyblxxerbmqxjr.streamlit.app/"
+      link: "https://pdf-bot-gamma.vercel.app/"
     },
     {
       title: "AI Music Recommendation System",
@@ -138,7 +142,7 @@ const App = () => {
         "Dynamic music playlist generation",
         "OpenCV integration for facial recognition"
       ],
-      link: "#" 
+      link: "#" // Add your deployed link here if available
     },
     {
       title: "Diet Guru: Personalized Nutrition Planner",
@@ -149,7 +153,7 @@ const App = () => {
         "Nutritional database integration",
         "Personalized meal planning"
       ],
-      link: "#" 
+      link: "#" // Add your deployed link here if available
     },
   ];
 
@@ -166,6 +170,7 @@ const App = () => {
     },
   ];
 
+  // Navigation Links
   const navLinks = [
     { id: 'about', label: 'Summary' },
     { id: 'education', label: 'Education' },
@@ -192,7 +197,7 @@ const App = () => {
       {/* Neuron background component */}
       <NeuronBackground />
 
-      {/* Header Section */}
+      {/* Header Section - Scrolls naturally */}
       <header className="relative z-20 w-full pt-8 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <RevealOnScroll>
@@ -202,16 +207,16 @@ const App = () => {
               <div className="flex items-center gap-6 w-full md:w-auto">
                 <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-teal-500 shadow-lg shrink-0">
                   <img
-                    src="assets/img/profile_photo1.JPG" 
+                    src="assets/img/profile_photo1.JPG"
                     alt="Gaurav Patil"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold text-white tracking-tight">
-                    Gaurav Patil
+                    Gaurav <span className="text-teal-400">Patil</span>
                   </h1>
-                  <p className="text-sm text-gray-400 mt-1">AI & ML Engineer</p>
+                  <p className="text-sm text-gray-400 mt-1">AI & Machine Learning Engineer</p>
                 </div>
               </div>
 
@@ -286,7 +291,7 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 3. Technical Skills */}
+          {/* 3. Technical Skills (With Logos) */}
           <section id="skills" className="scroll-mt-8">
             <RevealOnScroll>
               <div className="flex items-center gap-3 mb-8">
@@ -383,7 +388,7 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 6. Contact Section  */}
+          {/* 6. Contact Section (Footer) */}
           <section id="contact" className="scroll-mt-8 pt-12 border-t border-gray-800">
             <RevealOnScroll>
               <div className="text-center max-w-4xl mx-auto">
@@ -427,7 +432,7 @@ const App = () => {
                    </div>
                 </div>
 
-                {/* Resume Download Button */}
+                {/* Resume Download Button - Top */}
                 <div className="flex justify-center mb-10">
                   <a 
                     href={contactInfo.resume} 
@@ -439,7 +444,7 @@ const App = () => {
                   </a>
                 </div>
 
-                {/* Social Links  */}
+                {/* Social Links Row - Bottom */}
                 <div className="flex flex-wrap justify-center gap-4 mb-12">
                   {/* LinkedIn */}
                   <a href={contactInfo.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2 bg-gray-800 hover:bg-[#0077b5] text-gray-300 hover:text-white rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-1 group">
@@ -488,7 +493,7 @@ const App = () => {
   );
 };
 
-// --- NEURON BACKGROUND COMPONENT  ---
+// --- NEURON BACKGROUND COMPONENT (Optimized) ---
 const NeuronBackground = () => {
   const canvasRef = useRef(null);
   const animationFrameId = useRef(null);
@@ -502,7 +507,7 @@ const NeuronBackground = () => {
     connectionLineWidth: 0.2,
     neuronColor: 'rgba(94, 234, 212, 0.6)',
     connectionColor: 'rgba(139, 92, 246, 0.3)',
-    mouseInteractionRadius: 200, 
+    mouseInteractionRadius: 200, // Increased radius
     neuronSpeed: 0.05,
   };
 
@@ -536,7 +541,8 @@ const NeuronBackground = () => {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < config.mouseInteractionRadius) {
-          const force = (1 - distance / config.mouseInteractionRadius) * 0.005; 
+          const force = (1 - distance / config.mouseInteractionRadius) * 0.005; // Force multiplier
+          // Change to repulsion (moving away from mouse)
           neuron.vx -= dx * force; 
           neuron.vy -= dy * force;
         }

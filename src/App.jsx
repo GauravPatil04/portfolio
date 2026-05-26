@@ -94,6 +94,9 @@ const App = () => {
       "SQL": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg", // Using MySQL icon for SQL
       "TensorFlow": "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg",
       "Scikit-learn": "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg",
+      "FastAPI": "https://raw.githubusercontent.com/devicons/devicon/master/icons/fastapi/fastapi-original.svg",
+      "LangChain": "https://raw.githubusercontent.com/langchain-ai/langchain/master/docs/static/svg/favicon.svg",
+      "OpenCV": "https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg",
       "Pandas": "https://raw.githubusercontent.com/devicons/devicon/master/icons/pandas/pandas-original.svg",
       "NumPy": "https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg",
       "Matplotlib": "https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg",
@@ -101,24 +104,30 @@ const App = () => {
       "Git": "https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg",
       "GitHub": "https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg",
       "Docker": "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg",
-      "MySQL": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg"
+      "Jira": "https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original.svg",
+      "MySQL": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original.svg",
+      "PostgreSQL": "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg"
     };
     return logos[skillName] || null;
   };
 
   const technicalSkills = [
     { 
-      category: "Programming", 
+      category: "Languages", 
       skills: ["Python", "SQL"] 
     },
     { 
-      category: "Machine Learning", 
-      skills: ["TensorFlow", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn"] 
+      category: "Libraries & Frameworks", 
+      skills: ["TensorFlow", "Scikit-learn", "FastAPI", "LangChain", "OpenCV"] 
     },
     { 
-      category: "Tools & Platforms", 
-      skills: ["Git", "GitHub", "Docker", "MySQL"] 
+      category: "Tools & Technologies", 
+      skills: ["Git", "GitHub", "Docker", "Jira"] 
     },
+    {
+      category: "Databases",
+      skills: ["MySQL", "PostgreSQL"]
+    }
   ];
 
   const projects = [
@@ -145,13 +154,13 @@ const App = () => {
       link: "#" // Add your deployed link here if available
     },
     {
-      title: "Diet Guru: Personalized Nutrition Planner",
-      tech: "Scikit-learn · Content Filtering · Python",
-      description: "Designed a personalized diet recommendation system using content-based filtering algorithms. Generates meal plans based on user health goals, dietary restrictions, and nutritional profiles.",
+      title: "RehabMate: AI-Powered Physiotherapy Web Application",
+      tech: "MediaPipe · FastAPI · PostgreSQL · HTML/CSS/JavaScript",
+      description: "Developed an AI-powered physiotherapy web application that monitors rehabilitation exercises through a webcam, provides real-time posture correction feedback, and stores daily data to track user progress.",
       achievements: [
-        "Content-based filtering algorithms",
-        "Nutritional database integration",
-        "Personalized meal planning"
+        "Integrated MediaPipe for body landmark detection and exercise posture classification",
+        "FastAPI backend APIs with PostgreSQL for database management",
+        "76% overall posture classification accuracy across 5 rehabilitation exercises"
       ],
       link: "#" // Add your deployed link here if available
     },
@@ -170,10 +179,24 @@ const App = () => {
     },
   ];
 
+  const experience = [
+    {
+      title: "AIML Intern",
+      company: "WEBiSOFTECH",
+      duration: "Jan 2026 – Apr 2026",
+      achievements: [
+        "Performed data preprocessing, EDA, and feature engineering to prepare real-world datasets for modeling.",
+        "Assisted in integrating trained ML models into web applications and validating model outputs.",
+        "Worked on end-to-end AI/ML pipelines, from data collection to model evaluation."
+      ]
+    }
+  ];
+
   // Navigation Links
   const navLinks = [
     { id: 'about', label: 'Summary' },
     { id: 'education', label: 'Education' },
+    { id: 'experience', label: 'Experience' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
@@ -291,14 +314,45 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 3. Technical Skills (With Logos) */}
+          {/* 3. Experience */}
+          <section id="experience" className="scroll-mt-8">
+            <RevealOnScroll>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-0.5 bg-green-500"></div>
+                <h2 className="text-3xl font-bold text-white">Experience</h2>
+              </div>
+              <div className="space-y-6">
+                {experience.map((job, index) => (
+                  <div key={index} className="bg-gray-900/40 rounded-2xl p-8 border border-gray-800 shadow-xl hover:border-green-500/30 transition-colors duration-300 backdrop-blur-sm">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                      <div>
+                        <h3 className="text-2xl font-bold text-white mb-1">{job.title}</h3>
+                        <p className="text-xl text-green-400 font-medium">{job.company}</p>
+                      </div>
+                      <span className="text-gray-500 text-sm whitespace-nowrap">{job.duration}</span>
+                    </div>
+                    <div className="space-y-3 pt-4 border-t border-gray-800/50">
+                      {job.achievements.map((achievement, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          <div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-2 flex-shrink-0"></div>
+                          <span className="text-gray-300 text-sm">{achievement}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </RevealOnScroll>
+          </section>
+
+          {/* 4. Technical Skills (With Logos) */}
           <section id="skills" className="scroll-mt-8">
             <RevealOnScroll>
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-12 h-0.5 bg-blue-500"></div>
                 <h2 className="text-3xl font-bold text-white">Technical Skills</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {technicalSkills.map((skillGroup, index) => (
                   <div key={index} className="bg-gray-900/40 rounded-2xl p-6 border border-gray-800 shadow-xl backdrop-blur-sm">
                     <h3 className="text-xl font-semibold text-gray-200 mb-6 flex items-center gap-2 border-b border-gray-800 pb-3">
@@ -327,7 +381,7 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 4. Projects */}
+          {/* 5. Projects */}
           <section id="projects" className="scroll-mt-8">
             <RevealOnScroll>
               <div className="flex items-center gap-3 mb-8">
@@ -364,7 +418,7 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 5. Activities */}
+          {/* 6. Activities */}
           <section className="scroll-mt-8">
             <RevealOnScroll>
               <div className="flex items-center gap-3 mb-8">
@@ -388,7 +442,7 @@ const App = () => {
             </RevealOnScroll>
           </section>
 
-          {/* 6. Contact Section (Footer) */}
+          {/* 7. Contact Section (Footer) */}
           <section id="contact" className="scroll-mt-8 pt-12 border-t border-gray-800">
             <RevealOnScroll>
               <div className="text-center max-w-4xl mx-auto">
@@ -548,74 +602,86 @@ const NeuronBackground = () => {
         }
       }
 
+      // Draw neuron
+      ctx.fillStyle = config.neuronColor;
       ctx.beginPath();
       ctx.arc(neuron.x, neuron.y, neuron.radius, 0, Math.PI * 2);
-      ctx.fillStyle = config.neuronColor;
       ctx.fill();
     });
 
+    // Draw connections
+    ctx.strokeStyle = config.connectionColor;
+    ctx.lineWidth = config.connectionLineWidth;
     for (let i = 0; i < neurons.current.length; i++) {
       for (let j = i + 1; j < neurons.current.length; j++) {
-        const n1 = neurons.current[i];
-        const n2 = neurons.current[j];
-        const dx = n1.x - n2.x;
-        const dy = n1.y - n2.y;
+        const dx = neurons.current[i].x - neurons.current[j].x;
+        const dy = neurons.current[i].y - neurons.current[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < config.connectionDistance) {
           ctx.beginPath();
-          ctx.moveTo(n1.x, n1.y);
-          ctx.lineTo(n2.x, n2.y);
-          ctx.strokeStyle = config.connectionColor.replace('0.3', (0.5 - distance / config.connectionDistance).toFixed(2));
-          ctx.lineWidth = config.connectionLineWidth;
+          ctx.moveTo(neurons.current[i].x, neurons.current[i].y);
+          ctx.lineTo(neurons.current[j].x, neurons.current[j].y);
           ctx.stroke();
         }
       }
     }
   }, [config]);
 
-  const animate = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    draw(ctx, canvas);
-    animationFrameId.current = requestAnimationFrame(animate);
-  }, [draw]);
+  const handleResize = useCallback(() => {
+    if (canvasRef.current) {
+      const rect = canvasRef.current.getBoundingClientRect();
+      canvasRef.current.width = rect.width;
+      canvasRef.current.height = rect.height;
+      initNeurons(canvasRef.current);
+    }
+  }, [initNeurons]);
+
+  const handleMouseMove = useCallback((e) => {
+    if (canvasRef.current) {
+      const rect = canvasRef.current.getBoundingClientRect();
+      mouse.current.x = e.clientX - rect.left;
+      mouse.current.y = e.clientY - rect.top;
+    }
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    mouse.current = { x: null, y: null };
+  }, []);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvasRef.current) return;
 
-    const setCanvasDimensions = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = document.documentElement.scrollHeight;
-      initNeurons(canvas);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    canvasRef.current.addEventListener('mousemove', handleMouseMove);
+    canvasRef.current.addEventListener('mouseleave', handleMouseLeave);
+
+    const ctx = canvasRef.current.getContext('2d');
+    if (!ctx) return;
+
+    const animate = () => {
+      draw(ctx, canvasRef.current);
+      animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    setCanvasDimensions();
-
-    const handleMouseMove = (e) => {
-      mouse.current = { x: e.clientX, y: e.clientY };
-    };
-
-    window.addEventListener('resize', setCanvasDimensions);
-    window.addEventListener('mousemove', handleMouseMove);
     animationFrameId.current = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener('resize', setCanvasDimensions);
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', handleResize);
+      canvasRef.current?.removeEventListener('mousemove', handleMouseMove);
+      canvasRef.current?.removeEventListener('mouseleave', handleMouseLeave);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [animate, initNeurons]);
+  }, [draw, handleMouseMove, handleMouseLeave, handleResize]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 0 }}
+      className="fixed top-0 left-0 w-full h-full -z-10 bg-gradient-to-br from-gray-900 via-gray-950 to-black"
+      style={{ display: 'block' }}
     />
   );
 };

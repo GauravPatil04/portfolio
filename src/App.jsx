@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 // Import Lucide React icons
 import { Code, GitBranch, Database, Cpu, Cloud, Zap, LayoutDashboard, GraduationCap, Briefcase, Star, Smile, Activity, Anchor, Users, Mail, Phone, MapPin, ExternalLink, FileText, Brain, Download } from 'lucide-react';
-import profilePhoto from '../assets/img/profile_photo1.JPG';
 import resumePdf from '../GauravPatilResume.pdf';
 
 // --- ANIMATION COMPONENT ---
@@ -232,7 +231,7 @@ const App = () => {
               <div className="flex items-center gap-6 w-full md:w-auto">
                 <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-teal-500 shadow-lg shrink-0">
                   <img
-                    src={profilePhoto}
+                    src="/assets/img/profile_photo1.JPG"
                     alt="Gaurav Patil"
                     className="w-full h-full object-cover"
                   />

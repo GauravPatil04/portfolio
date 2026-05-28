@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 // Import Lucide React icons
 import { Code, GitBranch, Database, Cpu, Cloud, Zap, LayoutDashboard, GraduationCap, Briefcase, Star, Smile, Activity, Anchor, Users, Mail, Phone, MapPin, ExternalLink, FileText, Brain, Download } from 'lucide-react';
-import resumePdf from '../GauravPatilResume.pdf';
+import profilePhoto from '../assets/img/profile_photo1.JPG';
 
 // --- ANIMATION COMPONENT ---
 const RevealOnScroll = ({ children }) => {
@@ -75,7 +75,7 @@ const App = () => {
     leetcode: "https://leetcode.com/u/Gaurav__007/", 
     kaggle: "https://www.kaggle.com/gauravpatil04", 
     huggingface: "https://huggingface.co/GauravPatil04", 
-    resume: resumePdf
+    resume: '/GauravPatilResume.pdf'
   };
 
   const professionalSummary = `Final-year Computer Science student specializing in Artificial Intelligence and Machine Learning at Sanjay Ghodawat University. Proficient in Python, TensorFlow, and scikit-learn with hands-on experience in developing data-driven solutions. Skilled in Data Structures and Algorithms with 100+ problems solved on LeetCode. Seeking to apply strong analytical and problem-solving skills in an AI/ML Engineer role to contribute to innovative projects.`;
@@ -134,7 +134,7 @@ const App = () => {
   const projects = [
     {
       title: "PDF_Guru: PDF QA System (RAG)",
-      tech: "Langchain, Groq Llama 3.3 70B · ChromaDB · Streamlit",
+      tech: "Langchain · Groq Llama 3.3 70B · ChromaDB · Streamlit",
       description: "A high-performance, privacy-preserving Retrieval-Augmented Generation (RAG) system designed for multi-user environments. Users can upload a PDF and interact with its content using advanced AI—processed entirely in memory for confidentiality.",
       achievements: [
         "Privacy by Design: No file storage, all data in RAM",
@@ -231,7 +231,7 @@ const App = () => {
               <div className="flex items-center gap-6 w-full md:w-auto">
                 <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-teal-500 shadow-lg shrink-0">
                   <img
-                    src="/assets/img/profile_photo1.JPG"
+                    src={profilePhoto}
                     alt="Gaurav Patil"
                     className="w-full h-full object-cover"
                   />

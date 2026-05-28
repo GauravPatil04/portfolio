@@ -143,7 +143,7 @@ integration. Strong analytical and problem-solving abilities supported by Data S
         "Enterprise-Grade Pipeline with Groq's Llama 3.3 70B",
         "Multi-User Safe with isolated session states"
       ],
-      link: "https://pdf-bot-gamma.vercel.app/"
+      link: "https://pdfbot-alit4bjkyyblxxerbmqxjr.streamlit.app/"
     },
     {
       title: "AI Music Recommendation System",
@@ -165,7 +165,7 @@ integration. Strong analytical and problem-solving abilities supported by Data S
         "FastAPI backend APIs with PostgreSQL for database management",
         "76% overall posture classification accuracy across 5 rehabilitation exercises"
       ],
-      link: "#" // Add your deployed link here if available
+      link: "https://github.com/GauravPatil04/AI_Physiotherapy"
     },
   ];
 

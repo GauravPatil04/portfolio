@@ -78,7 +78,9 @@ const App = () => {
     resume: '/GauravPatilResume.pdf'
   };
 
-  const professionalSummary = `Final-year Computer Science student specializing in Artificial Intelligence and Machine Learning at Sanjay Ghodawat University. Proficient in Python, TensorFlow, and scikit-learn with hands-on experience in developing data-driven solutions. Skilled in Data Structures and Algorithms with 100+ problems solved on LeetCode. Seeking to apply strong analytical and problem-solving skills in an AI/ML Engineer role to contribute to innovative projects.`;
+  const professionalSummary = `AI/ML Developer with hands-on experience building Generative AI, RAG, Computer Vision applications using LLMs, 
+LangChain, and TensorFlow. Skilled in Python, FastAPI, and SQL, with practical expertise in model training, backend 
+integration. Strong analytical and problem-solving abilities supported by Data Structures & Algorithms.`;
 
   const education = {
     institution: "Sanjay Ghodawat University",

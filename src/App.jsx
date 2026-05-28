@@ -240,7 +240,7 @@ const App = () => {
                   <h1 className="text-3xl font-bold text-white tracking-tight">
                     Gaurav <span className="text-teal-400">Patil</span>
                   </h1>
-                  <p className="text-sm text-gray-400 mt-1">AI & Machine Learning Engineer</p>
+                  <p className="text-sm text-gray-400 mt-1">AI/ML Engineer</p>
                 </div>
               </div>
 
@@ -556,14 +556,12 @@ const NeuronBackground = () => {
   const mouse = useRef({ x: null, y: null });
 
   const config = {
-    neuronCount: 80,
-    neuronRadius: 1.2,
-    connectionDistance: 100,
-    connectionLineWidth: 0.2,
-    neuronColor: 'rgba(94, 234, 212, 0.6)',
-    connectionColor: 'rgba(139, 92, 246, 0.3)',
-    mouseInteractionRadius: 200, // Increased radius
-    neuronSpeed: 0.05,
+    neuronCount: 120,
+    neuronRadius: 2.4,
+    bubbleGlow: 10,
+    neuronColor: 'rgba(94, 234, 212, 0.85)',
+    mouseInteractionRadius: 220,
+    neuronSpeed: 0.08,
   };
 
   const initNeurons = useCallback((canvas) => {
@@ -603,37 +601,20 @@ const NeuronBackground = () => {
         }
       }
 
-      // Draw neuron
+      // Draw bubble
+      ctx.shadowColor = config.neuronColor;
+      ctx.shadowBlur = config.bubbleGlow;
       ctx.fillStyle = config.neuronColor;
       ctx.beginPath();
       ctx.arc(neuron.x, neuron.y, neuron.radius, 0, Math.PI * 2);
       ctx.fill();
     });
-
-    // Draw connections
-    ctx.strokeStyle = config.connectionColor;
-    ctx.lineWidth = config.connectionLineWidth;
-    for (let i = 0; i < neurons.current.length; i++) {
-      for (let j = i + 1; j < neurons.current.length; j++) {
-        const dx = neurons.current[i].x - neurons.current[j].x;
-        const dy = neurons.current[i].y - neurons.current[j].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < config.connectionDistance) {
-          ctx.beginPath();
-          ctx.moveTo(neurons.current[i].x, neurons.current[i].y);
-          ctx.lineTo(neurons.current[j].x, neurons.current[j].y);
-          ctx.stroke();
-        }
-      }
-    }
   }, [config]);
 
   const handleResize = useCallback(() => {
     if (canvasRef.current) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      canvasRef.current.width = rect.width;
-      canvasRef.current.height = rect.height;
+      canvasRef.current.width = window.innerWidth;
+      canvasRef.current.height = window.innerHeight;
       initNeurons(canvasRef.current);
     }
   }, [initNeurons]);

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 // Import Lucide React icons
 import { Code, GitBranch, Database, Cpu, Cloud, Zap, LayoutDashboard, GraduationCap, Briefcase, Star, Smile, Activity, Anchor, Users, Mail, Phone, MapPin, ExternalLink, FileText, Brain, Download } from 'lucide-react';
-import profilePhoto from '../assets/img/profile_photo1.JPG';
+import profilePhoto from '../assets/img/profile_photo.jpg';
 
 // --- ANIMATION COMPONENT ---
 const RevealOnScroll = ({ children }) => {
